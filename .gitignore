@@ -1,0 +1,25 @@
+# Composer
+/vendor/
+composer.lock
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Test artifacts (keep tests/ folder but ignore cache)
+.phpunit.result.cache
+/coverage/
+
+# Development files
+/server.php
+/note.md
+GEMINI.md
+/config
+.env
+
+# Amazon Q
+.amazonq/

@@ -1,0 +1,18 @@
+#!/usr/bin/env php
+<?php
+
+require __DIR__ . '/../vendor/autoload.php';
+
+use Symfony\Component\Console\Application;
+use Vigihdev\Ssh\Command\{SshCommand, SshListCommand};
+use Vigihdev\Ssh\Contracts\SshConnectionManagerInterface;
+use VigihDev\SymfonyBridge\Config\ConfigBridge;
+use VigihDev\SymfonyBridge\Config\Service\ServiceLocator;
+
+ConfigBridge::boot(dirname(__DIR__));
+
+$sshConnection = ServiceLocator::get(SshConnectionManagerInterface::class);
+$application = new Application();
+$application->add(new SshCommand(sshConnection: $sshConnection));
+$application->add(new SshListCommand(sshConnection: $sshConnection));
+$application->run();
