@@ -8,15 +8,33 @@ use phpseclib3\Net\SFTP;
 use RuntimeException;
 use Vigihdev\Ssh\Contracts\{PublicKeyLoaderInterface, RemotePathInterface, SshConnectionInterface};
 
+/**
+ * SftpService
+ *
+ * Class untuk service SFTP
+ */
 final class SftpService
 {
 
+    /**
+     * Membuat instance baru dari SftpService.
+     *
+     * @param SshConnectionInterface $connection Instance dari SshConnection.
+     * @param RemotePathInterface $remotePath Instance dari RemotePath.
+     * @param PublicKeyLoaderInterface $key Instance dari PublicKeyLoader.
+     */
     public function __construct(
         private readonly SshConnectionInterface $connection,
         private readonly RemotePathInterface $remotePath,
         private readonly PublicKeyLoaderInterface $key,
     ) {}
 
+    /**
+     * Mendapatkan instance dari SFTP client.
+     *
+     * @return SFTP Instance dari SFTP client.
+     * @throws RuntimeException Jika login gagal atau path bukan direktori.
+     */
     public function getSftp(): SFTP
     {
 

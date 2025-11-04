@@ -13,11 +13,11 @@ namespace Vigihdev\Ssh\Exception;
 class CommandException extends SshException
 {
     /**
-     * Constructor untuk CommandException
+     * Constructor untuk CommandException.
      *
-     * @param string $message Pesan error command execution yang spesifik
-     * @param int $code Error code (default: 2001)
-     * @param \Throwable|null $previous Previous exception
+     * @param string $message Pesan error command execution yang spesifik.
+     * @param int $code Error code.
+     * @param \Throwable|null $previous Previous exception.
      */
     public function __construct(
         string $message = "Gagal mengeksekusi command SSH",
@@ -28,11 +28,11 @@ class CommandException extends SshException
     }
 
     /**
-     * Create exception untuk command execution failed
+     * Membuat exception untuk command execution failed.
      *
-     * @param string $command Command yang gagal dieksekusi
-     * @param int $exitCode Exit code dari command
-     * @param string $errorOutput Error output dari command
+     * @param string $command Command yang gagal dieksekusi.
+     * @param int $exitCode Exit code dari command.
+     * @param string $errorOutput Error output dari command.
      * @return self
      */
     public static function executionFailed(string $command, int $exitCode, string $errorOutput = ''): self
@@ -46,10 +46,10 @@ class CommandException extends SshException
     }
 
     /**
-     * Create exception untuk command timeout
+     * Membuat exception untuk command timeout.
      *
-     * @param string $command Command yang timeout
-     * @param int $timeout Timeout dalam detik
+     * @param string $command Command yang timeout.
+     * @param int $timeout Timeout dalam detik.
      * @return self
      */
     public static function timeout(string $command, int $timeout): self
@@ -61,9 +61,9 @@ class CommandException extends SshException
     }
 
     /**
-     * Create exception untuk command tidak ditemukan
+     * Membuat exception untuk command tidak ditemukan.
      *
-     * @param string $command Command yang tidak ditemukan
+     * @param string $command Command yang tidak ditemukan.
      * @return self
      */
     public static function commandNotFound(string $command): self

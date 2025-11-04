@@ -8,21 +8,50 @@ use phpseclib3\Net\SSH2;
 use RuntimeException;
 use Vigihdev\Ssh\Contracts\{RemotePathInterface, SshClientInterface};
 
+/**
+ * SshClient
+ *
+ * Class untuk berinteraksi dengan SSH server
+ */
 final class SshClient implements SshClientInterface
 {
+    /**
+     * @var SSH2 Instance dari SSH2 client.
+     */
+    private readonly SSH2 $ssh;
 
+    /**
+     * @var RemotePathInterface Instance dari RemotePath.
+     */
+    private readonly RemotePathInterface $remotePath;
+
+    /**
+     * Membuat instance baru dari SshClient.
+     *
+     * @param SSH2 $ssh Instance dari SSH2 client yang sudah terhubung.
+     * @param RemotePathInterface $remotePath Path remote direktori.
+     * @throws RuntimeException Jika SSH client tidak terhubung.
+     */
     public function __construct(
-        private readonly SSH2 $ssh,
-        private readonly RemotePathInterface $remotePath
+        SSH2 $ssh,
+        RemotePathInterface $remotePath
 
     ) {
         if (! $ssh->isConnected()) {
             throw new RuntimeException('SSH tidak connect');
         }
+
+        $this->ssh = $ssh;
+        $this->remotePath = $remotePath;
     }
 
     /**
-     * Menjalankan perintah di remote server
+     * Mengeksekusi perintah SSH di remote host.
+     *
+     * @param string $command Perintah yang akan dieksekusi.
+     * @param callable|null $callback Callback untuk menangani output secara real-time.
+     * @return string|boolean Output dari perintah atau false jika gagal.
+     * @throws RuntimeException Jika perintah SSH gagal dijalankan.
      */
     public function exec(string $command, callable $callback = null): string|bool
     {
@@ -41,9 +70,11 @@ final class SshClient implements SshClientInterface
         }
     }
 
-
     /**
-     * Mengambil direktori kerja saat ini (jika shell login)
+     * Mendapatkan direktori kerja saat ini di remote host.
+     *
+     * @return string|null Direktori kerja saat ini atau null jika gagal.
+     * @throws RuntimeException Jika gagal mendapatkan direktori kerja.
      */
     public function pwd(): ?string
     {
@@ -55,7 +86,10 @@ final class SshClient implements SshClientInterface
     }
 
     /**
-     * Mengambil direktori kerja saat ini (jika shell login)
+     * Mendapatkan daftar file dan direktori di direktori kerja saat ini di remote host.
+     *
+     * @return string|null Daftar file dan direktori atau null jika gagal.
+     * @throws RuntimeException Jika gagal mendapatkan daftar file dan direktori.
      */
     public function ls(): ?string
     {

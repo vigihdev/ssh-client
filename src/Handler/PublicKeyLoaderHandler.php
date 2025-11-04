@@ -9,11 +9,25 @@ use phpseclib3\Crypt\PublicKeyLoader;
 use RuntimeException;
 use Vigihdev\Ssh\Contracts\PublicKeyLoaderInterface;
 
+/**
+ * PublicKeyLoaderHandler
+ *
+ * Class untuk handle public key loader
+ */
 final class PublicKeyLoaderHandler implements PublicKeyLoaderInterface
 {
 
+    /**
+     * @var string Path ke file key.
+     */
     private string $keyPathLoader;
 
+    /**
+     * Membuat instance baru dari PublicKeyLoaderHandler.
+     *
+     * @param string $keyPath Path ke file key.
+     * @throws RuntimeException Jika file key tidak tersedia.
+     */
     public function __construct(
         private readonly string $keyPath
     ) {
@@ -24,6 +38,11 @@ final class PublicKeyLoaderHandler implements PublicKeyLoaderInterface
         }
     }
 
+    /**
+     * Mendapatkan path asli dari file key.
+     *
+     * @return string Path asli dari file key.
+     */
     private function realKeyPath(): string
     {
         $pathKey = $this->keyPath;
@@ -37,6 +56,11 @@ final class PublicKeyLoaderHandler implements PublicKeyLoaderInterface
         return $pathKey;
     }
 
+    /**
+     * Mendapatkan key loader.
+     *
+     * @return AsymmetricKey Instance dari AsymmetricKey.
+     */
     public function getKeyLoader(): AsymmetricKey
     {
         $key = file_get_contents($this->keyPathLoader);

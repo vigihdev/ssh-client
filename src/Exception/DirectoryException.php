@@ -13,11 +13,11 @@ namespace Vigihdev\Ssh\Exception;
 class DirectoryException extends SshException
 {
     /**
-     * Constructor untuk DirectoryException
+     * Constructor untuk DirectoryException.
      *
-     * @param string $message Pesan error directory operation yang spesifik
-     * @param int $code Error code (default: 4001)
-     * @param \Throwable|null $previous Previous exception
+     * @param string $message Pesan error directory operation yang spesifik.
+     * @param int $code Error code.
+     * @param \Throwable|null $previous Previous exception.
      */
     public function __construct(
         string $message = "Gagal melakukan operasi directory",
@@ -28,9 +28,9 @@ class DirectoryException extends SshException
     }
 
     /**
-     * Create exception untuk directory tidak ditemukan
+     * Membuat exception untuk directory tidak ditemukan.
      *
-     * @param string $dirPath Path directory yang tidak ditemukan
+     * @param string $dirPath Path directory yang tidak ditemukan.
      * @return self
      */
     public static function directoryNotFound(string $dirPath): self
@@ -39,9 +39,9 @@ class DirectoryException extends SshException
     }
 
     /**
-     * Create exception untuk gagal membuat directory
+     * Membuat exception untuk gagal membuat directory.
      *
-     * @param string $dirPath Path directory yang gagal dibuat
+     * @param string $dirPath Path directory yang gagal dibuat.
      * @return self
      */
     public static function createFailed(string $dirPath): self
@@ -50,9 +50,9 @@ class DirectoryException extends SshException
     }
 
     /**
-     * Create exception untuk gagal menghapus directory
+     * Membuat exception untuk gagal menghapus directory.
      *
-     * @param string $dirPath Path directory yang gagal dihapus
+     * @param string $dirPath Path directory yang gagal dihapus.
      * @return self
      */
     public static function deleteFailed(string $dirPath): self
@@ -61,9 +61,9 @@ class DirectoryException extends SshException
     }
 
     /**
-     * Create exception untuk directory tidak kosong
+     * Membuat exception untuk directory tidak kosong.
      *
-     * @param string $dirPath Path directory yang tidak kosong
+     * @param string $dirPath Path directory yang tidak kosong.
      * @return self
      */
     public static function notEmpty(string $dirPath): self
@@ -72,9 +72,9 @@ class DirectoryException extends SshException
     }
 
     /**
-     * Create exception untuk gagal mengubah directory
+     * Membuat exception untuk gagal mengubah directory.
      *
-     * @param string $dirPath Path directory yang gagal diakses
+     * @param string $dirPath Path directory yang gagal diakses.
      * @return self
      */
     public static function changeFailed(string $dirPath): self

@@ -9,18 +9,42 @@ use Vigihdev\Ssh\Contracts\{PublicKeyLoaderInterface, RemotePathInterface, SshCo
 use Vigihdev\Ssh\Client\{SftpClient, SshClient};
 use Vigihdev\Ssh\Exception\{ConnectionException, DirectoryException};
 
+/**
+ * SshConnectionConfigService
+ *
+ * Class untuk konfigurasi koneksi SSH
+ */
 final class SshConnectionConfigService implements SshConnectionConfigInterface
 {
 
+    /**
+     * @var SSH2|null Instance dari SSH2 client.
+     */
     private ?SSH2 $ssh2 = null;
+
+    /**
+     * @var SFTP|null Instance dari SFTP client.
+     */
     private ?SFTP $sftp = null;
 
+    /**
+     * Membuat instance baru dari SshConnectionConfigService.
+     *
+     * @param PublicKeyLoaderInterface $key Instance dari PublicKeyLoader.
+     * @param SshConnectionInterface $connection Instance dari SshConnection.
+     * @param RemotePathInterface $remotePath Instance dari RemotePath.
+     */
     public function __construct(
         private readonly PublicKeyLoaderInterface $key,
         private readonly SshConnectionInterface $connection,
         private readonly RemotePathInterface $remotePath
     ) {}
 
+    /**
+     * Mendapatkan SshClient.
+     *
+     * @return SshClient Instance dari SshClient.
+     */
     public function getSshClient(): SshClient
     {
         return new SshClient(
@@ -29,11 +53,22 @@ final class SshConnectionConfigService implements SshConnectionConfigInterface
         );
     }
 
+    /**
+     * Mendapatkan SftpClient.
+     *
+     * @return SftpClient Instance dari SftpClient.
+     */
     public function getSftpClient(): SftpClient
     {
         return new SftpClient($this->getSftp());
     }
 
+    /**
+     * Mendapatkan atau membuat instance dari SSH2 client.
+     *
+     * @return SSH2 Instance dari SSH2 client.
+     * @throws ConnectionException Jika autentikasi gagal.
+     */
     private function getSsh(): SSH2
     {
 
@@ -56,6 +91,11 @@ final class SshConnectionConfigService implements SshConnectionConfigInterface
         return $this->ssh2;
     }
 
+    /**
+     * Mendapatkan atau membuat instance dari SFTP client.
+     *
+     * @return SFTP Instance dari SFTP client.
+     */
     private function getSftp(): SFTP
     {
 
@@ -76,6 +116,14 @@ final class SshConnectionConfigService implements SshConnectionConfigInterface
         return $this->sftp;
     }
 
+    /**
+     * Menghubungkan dan memvalidasi koneksi SFTP.
+     *
+     * @param SFTP $sftp Instance dari SFTP client.
+     * @return void
+     * @throws ConnectionException Jika autentikasi gagal.
+     * @throws DirectoryException Jika direktori remote tidak ditemukan.
+     */
     private function connectAndValidate(SFTP $sftp): void
     {
         if (! $sftp->login($this->connection->getUser(), $this->key->getKeyLoader())) {

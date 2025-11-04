@@ -13,11 +13,11 @@ namespace Vigihdev\Ssh\Exception;
 class ConnectionException extends SshException
 {
     /**
-     * Constructor untuk ConnectionException
+     * Constructor untuk ConnectionException.
      *
-     * @param string $message Pesan error koneksi yang spesifik
-     * @param int $code Error code (default: 1001)
-     * @param \Throwable|null $previous Previous exception
+     * @param string $message Pesan error koneksi yang spesifik.
+     * @param int $code Error code.
+     * @param \Throwable|null $previous Previous exception.
      */
     public function __construct(
         string $message = "Gagal melakukan koneksi SSH",
@@ -28,11 +28,11 @@ class ConnectionException extends SshException
     }
 
     /**
-     * Create exception untuk koneksi timeout
+     * Membuat exception untuk koneksi timeout.
      *
-     * @param string $host Host yang dihubungi
-     * @param int $port Port yang digunakan
-     * @param int $timeout Timeout dalam detik
+     * @param string $host Host yang dihubungi.
+     * @param int $port Port yang digunakan.
+     * @param int $timeout Timeout dalam detik.
      * @return self
      */
     public static function timeout(string $host, int $port = 22, int $timeout = 30): self
@@ -44,10 +44,10 @@ class ConnectionException extends SshException
     }
 
     /**
-     * Create exception untuk authentication failed
+     * Membuat exception untuk authentication failed.
      *
-     * @param string $host Host yang dihubungi
-     * @param string $username Username yang digunakan
+     * @param string $host Host yang dihubungi.
+     * @param string $username Username yang digunakan.
      * @return self
      */
     public static function authenticationFailed(string $host, string $username): self
@@ -59,9 +59,9 @@ class ConnectionException extends SshException
     }
 
     /**
-     * Create exception untuk host tidak ditemukan
+     * Membuat exception untuk host tidak ditemukan.
      *
-     * @param string $host Host yang tidak ditemukan
+     * @param string $host Host yang tidak ditemukan.
      * @return self
      */
     public static function hostNotFound(string $host): self
@@ -73,10 +73,10 @@ class ConnectionException extends SshException
     }
 
     /**
-     * Create exception untuk port tidak tersedia
+     * Membuat exception untuk port tidak tersedia.
      *
-     * @param string $host Host yang dihubungi
-     * @param int $port Port yang tidak tersedia
+     * @param string $host Host yang dihubungi.
+     * @param int $port Port yang tidak tersedia.
      * @return self
      */
     public static function portNotAvailable(string $host, int $port): self
@@ -88,9 +88,9 @@ class ConnectionException extends SshException
     }
 
     /**
-     * Create exception untuk private key tidak valid
+     * Membuat exception untuk private key tidak valid.
      *
-     * @param string $keyPath Path ke private key
+     * @param string $keyPath Path ke private key.
      * @return self
      */
     public static function invalidPrivateKey(string $keyPath): self

@@ -15,11 +15,11 @@ use Exception;
 class SshException extends Exception
 {
     /**
-     * Constructor untuk SshException
+     * Constructor untuk SshException.
      *
-     * @param string $message Pesan error yang jelas dan informatif
-     * @param int $code Error code (default: 0)
-     * @param \Throwable|null $previous Previous exception untuk exception chaining
+     * @param string $message Pesan error yang jelas dan informatif.
+     * @param int $code Error code.
+     * @param \Throwable|null $previous Previous exception untuk exception chaining.
      */
     public function __construct(
         string $message = "Terjadi kesalahan pada operasi SSH",

@@ -13,11 +13,11 @@ namespace Vigihdev\Ssh\Exception;
 class ConfigurationException extends SshException
 {
     /**
-     * Constructor untuk ConfigurationException
+     * Constructor untuk ConfigurationException.
      *
-     * @param string $message Pesan error konfigurasi yang spesifik
-     * @param int $code Error code (default: 5001)
-     * @param \Throwable|null $previous Previous exception
+     * @param string $message Pesan error konfigurasi yang spesifik.
+     * @param int $code Error code.
+     * @param \Throwable|null $previous Previous exception.
      */
     public function __construct(
         string $message = "Konfigurasi SSH tidak valid",
@@ -28,9 +28,9 @@ class ConfigurationException extends SshException
     }
 
     /**
-     * Create exception untuk config file tidak ditemukan
+     * Membuat exception untuk config file tidak ditemukan.
      *
-     * @param string $configPath Path config file
+     * @param string $configPath Path config file.
      * @return self
      */
     public static function configFileNotFound(string $configPath): self
@@ -39,10 +39,10 @@ class ConfigurationException extends SshException
     }
 
     /**
-     * Create exception untuk config tidak valid
+     * Membuat exception untuk config tidak valid.
      *
-     * @param string $configKey Key konfigurasi
-     * @param mixed $configValue Value konfigurasi
+     * @param string $configKey Key konfigurasi.
+     * @param mixed $configValue Value konfigurasi.
      * @return self
      */
     public static function invalidConfig(string $configKey, $configValue): self
@@ -51,9 +51,9 @@ class ConfigurationException extends SshException
     }
 
     /**
-     * Create exception untuk server tidak ditemukan
+     * Membuat exception untuk server tidak ditemukan.
      *
-     * @param string $serverName Nama server
+     * @param string $serverName Nama server.
      * @return self
      */
     public static function serverNotFound(string $serverName): self
@@ -62,9 +62,9 @@ class ConfigurationException extends SshException
     }
 
     /**
-     * Create exception untuk required config missing
+     * Membuat exception untuk required config missing.
      *
-     * @param string $configKey Key konfigurasi yang required
+     * @param string $configKey Key konfigurasi yang required.
      * @return self
      */
     public static function missingRequiredConfig(string $configKey): self

@@ -10,16 +10,39 @@ use Symfony\Component\Console\Input\{InputOption, InputInterface};
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Vigihdev\Ssh\Service\SshConnectionManagerService;
 
+/**
+ * SshCommand
+ *
+ * Command untuk mengeksekusi perintah SSH di remote host.
+ */
 final class SshCommand extends Command
 {
     protected static $defaultName = 'ssh';
 
+    /**
+     * @var SshConnectionManagerService
+     */
+    private readonly SshConnectionManagerService $sshConnection;
+
+    /**
+     * [__construct]
+     *
+     * @param SshConnectionManagerService $sshConnection
+     */
     public function __construct(
-        private readonly SshConnectionManagerService $sshConnection
+        SshConnectionManagerService $sshConnection
     ) {
         parent::__construct();
+        $this->sshConnection = $sshConnection;
     }
 
+    /**
+     * [configure]
+     *
+     * Mengkonfigurasi command, menambahkan deskripsi, argumen, dan opsi.
+     *
+     * @return void
+     */
     protected function configure(): void
     {
 
@@ -38,6 +61,15 @@ final class SshCommand extends Command
             );
     }
 
+    /**
+     * [execute]
+     *
+     * Mengeksekusi command SSH berdasarkan input user.
+     *
+     * @param InputInterface $input
+     * @param OutputInterface $output
+     * @return int
+     */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);

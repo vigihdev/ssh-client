@@ -13,11 +13,11 @@ namespace Vigihdev\Ssh\Exception;
 class FileTransferException extends SshException
 {
     /**
-     * Constructor untuk FileTransferException
+     * Constructor untuk FileTransferException.
      *
-     * @param string $message Pesan error file transfer yang spesifik
-     * @param int $code Error code (default: 3001)
-     * @param \Throwable|null $previous Previous exception
+     * @param string $message Pesan error file transfer yang spesifik.
+     * @param int $code Error code.
+     * @param \Throwable|null $previous Previous exception.
      */
     public function __construct(
         string $message = "Gagal melakukan transfer file",
@@ -28,9 +28,9 @@ class FileTransferException extends SshException
     }
 
     /**
-     * Create exception untuk file tidak ditemukan
+     * Membuat exception untuk file tidak ditemukan.
      *
-     * @param string $filePath Path file yang tidak ditemukan
+     * @param string $filePath Path file yang tidak ditemukan.
      * @return self
      */
     public static function fileNotFound(string $filePath): self
@@ -39,10 +39,10 @@ class FileTransferException extends SshException
     }
 
     /**
-     * Create exception untuk upload failed
+     * Membuat exception untuk upload failed.
      *
-     * @param string $localFile File lokal
-     * @param string $remoteFile File remote
+     * @param string $localFile File lokal.
+     * @param string $remoteFile File remote.
      * @return self
      */
     public static function uploadFailed(string $localFile, string $remoteFile): self
@@ -51,10 +51,10 @@ class FileTransferException extends SshException
     }
 
     /**
-     * Create exception untuk download failed
+     * Membuat exception untuk download failed.
      *
-     * @param string $remoteFile File remote
-     * @param string $localFile File lokal
+     * @param string $remoteFile File remote.
+     * @param string $localFile File lokal.
      * @return self
      */
     public static function downloadFailed(string $remoteFile, string $localFile): self
@@ -63,10 +63,10 @@ class FileTransferException extends SshException
     }
 
     /**
-     * Create exception untuk permission denied
+     * Membuat exception untuk permission denied.
      *
-     * @param string $filePath Path file
-     * @param string $operation Operasi yang dilakukan
+     * @param string $filePath Path file.
+     * @param string $operation Operasi yang dilakukan.
      * @return self
      */
     public static function permissionDenied(string $filePath, string $operation): self
