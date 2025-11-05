@@ -41,9 +41,9 @@ final class SftpClient implements SftpClientInterface
     /**
      * Mendapatkan path direktori saat ini.
      *
-     * @return mixed Path direktori saat ini.
+     * @return string direktori saat ini.
      */
-    public function pwd()
+    public function pwd(): string
     {
         return $this->sftp->pwd();
     }
