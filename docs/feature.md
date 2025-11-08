@@ -20,4 +20,16 @@ var_dump(
     $connection->getConnection('satis')->getSshClient()->pwd(),
 );
 
+
+$finder = new Finder();
+$finder
+    ->files()
+    ->in(Path::join(__DIR__, 'feature'))
+    ->name('/\.html/')
+;
+
+foreach ($finder->files() as $file) {
+    var_dump($file->getRealPath());
+}
+
 ```

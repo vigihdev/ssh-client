@@ -6,7 +6,9 @@ namespace Vigihdev\Ssh\Client;
 
 use phpseclib3\Net\SSH2;
 use RuntimeException;
+use Vigihdev\Encryption\Contracts\EnvironmentEncryptorServiceContract;
 use Vigihdev\Ssh\Contracts\{RemotePathInterface, SshClientInterface};
+use VigihDev\SymfonyBridge\Config\AttributeInjection\{DependencyInjector, Inject};
 
 /**
  * SshClient
@@ -34,12 +36,16 @@ final class SshClient implements SshClientInterface
      */
     public function __construct(
         SSH2 $ssh,
-        RemotePathInterface $remotePath
+        RemotePathInterface $remotePath,
+        #[Inject(EnvironmentEncryptorServiceContract::class)]
+        private ?EnvironmentEncryptorServiceContract $encryptor = null
 
     ) {
         if (! $ssh->isConnected()) {
             throw new RuntimeException('SSH tidak connect');
         }
+
+        DependencyInjector::inject($this);
 
         $this->ssh = $ssh;
         $this->remotePath = $remotePath;
@@ -55,7 +61,7 @@ final class SshClient implements SshClientInterface
      */
     public function exec(string $command, callable $callback = null): string|bool
     {
-        $remotePath = escapeshellarg($this->remotePath->getRemotePath());
+        $remotePath = escapeshellarg($this->decrypt($this->remotePath->getRemotePath()));
         try {
             $result = $this->ssh->exec("cd {$remotePath} && {$command}", $callback);
             if ($result === false) {
@@ -98,5 +104,10 @@ final class SshClient implements SshClientInterface
         } catch (\Throwable $e) {
             throw new RuntimeException('Gagal mendapatkan direktori kerja', previous: $e);
         }
+    }
+
+    private function decrypt(string $value): string
+    {
+        return $this->encryptor->isEncrypted($value) ? $this->encryptor->decrypt($value) : $value;
     }
 }

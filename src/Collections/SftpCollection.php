@@ -23,6 +23,7 @@ use Stringable;
  */
 final class SftpCollection implements IteratorAggregate, JsonSerializable, Stringable
 {
+
     /**
      * SftpCollection constructor.
      *
@@ -122,6 +123,10 @@ final class SftpCollection implements IteratorAggregate, JsonSerializable, Strin
         return $this->items;
     }
 
+    /**
+     * Kembalikan representasi string.
+     * @return string
+     */
     public function __toString(): string
     {
         return sprintf('SftpCollection(%d items)', count($this->items));
@@ -145,6 +150,8 @@ final class SftpCollection implements IteratorAggregate, JsonSerializable, Strin
 
     /**
      * Apakah koleksi kosong?
+     * 
+     * @return bool
      */
     public function isEmpty(): bool
     {
@@ -153,6 +160,7 @@ final class SftpCollection implements IteratorAggregate, JsonSerializable, Strin
 
     /**
      * Hitung jumlah item.
+     * @return int
      */
     public function count(): int
     {

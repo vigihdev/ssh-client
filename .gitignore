@@ -19,7 +19,7 @@ Thumbs.db
 /note.md
 GEMINI.md
 /config
-.env
+.env*
 
 # Amazon Q
 .amazonq/

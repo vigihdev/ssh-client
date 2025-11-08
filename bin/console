@@ -4,7 +4,8 @@
 require __DIR__ . '/../vendor/autoload.php';
 
 use Symfony\Component\Console\Application;
-use Vigihdev\Ssh\Command\{SftpDownloadCommand, SftpUploadCommand, SshCommand, SshListCommand};
+use Symfony\Component\Filesystem\Path;
+use Vigihdev\Ssh\Command\{SftpDownloadCommand, SftpUploadCommand, SshExecCommand, SshCommand, SshListCommand, SshScriptsExecCommand};
 use Vigihdev\Ssh\Contracts\SshConnectionManagerInterface;
 use VigihDev\SymfonyBridge\Config\ConfigBridge;
 use VigihDev\SymfonyBridge\Config\Service\ServiceLocator;
@@ -14,7 +15,12 @@ ConfigBridge::boot(dirname(__DIR__));
 $sshConnection = ServiceLocator::get(SshConnectionManagerInterface::class);
 $application = new Application();
 $application->add(new SshCommand(sshConnection: $sshConnection));
+$application->add(new SshExecCommand(sshConnection: $sshConnection));
 $application->add(new SshListCommand(sshConnection: $sshConnection));
 $application->add(new SftpDownloadCommand(sshConnection: $sshConnection));
 $application->add(new SftpUploadCommand(sshConnection: $sshConnection));
+$application->add(new SshScriptsExecCommand(
+    sshConnection: $sshConnection,
+    scriptsFileYaml: Path::join(dirname(__DIR__), 'config', 'packages', 'ssh-scripts.yaml'),
+));
 $application->run();
