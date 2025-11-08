@@ -15,7 +15,10 @@ use Symfony\Component\Finder\SplFileInfo;
 use Vigihdev\Ssh\Client\SftpClient;
 use Vigihdev\Ssh\Service\SshConnectionManagerService;
 
-#[AsCommand(name: 'sftp:upload', description: 'Upload file menggunakan koneksi SFTP/SSH')]
+#[AsCommand(
+    name: 'sftp:upload',
+    description: 'Upload file atau direktori ke server remote lewat SSH'
+)]
 final class SftpUploadCommand extends Command
 {
 
@@ -36,10 +39,16 @@ final class SftpUploadCommand extends Command
     protected function configure(): void
     {
         $this
-            ->setName('sftp:upload')
-            ->setDescription('Upload file atau direktori ke server remote lewat SSH')
-            ->addArgument('source', InputArgument::REQUIRED, 'File atau direktori sumber yang akan diupload (bisa lebih dari satu)')
-            ->addArgument('destination', InputArgument::REQUIRED, 'Path tujuan di server remote')
+            ->addArgument(
+                'source',
+                InputArgument::REQUIRED,
+                'File atau direktori sumber yang akan diupload (bisa lebih dari satu)'
+            )
+            ->addArgument(
+                'destination',
+                InputArgument::REQUIRED,
+                'Path tujuan di server remote'
+            )
             ->addOption(
                 'connection',
                 'c',

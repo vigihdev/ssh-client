@@ -29,10 +29,33 @@ final class SftpDownloadCommand extends Command
     protected function configure(): void
     {
         $this
-            ->addOption('connection', 'c', InputOption::VALUE_REQUIRED, 'Nama koneksi SSH (misal: satis, sirent, default)', 'default')
-            ->addArgument('remote_path', InputArgument::REQUIRED, 'Path file atau directory di server remote')
-            ->addArgument('local_path', InputArgument::OPTIONAL, 'Path lokal untuk menyimpan', '.')
-            ->addOption('recursive', 'r', InputOption::VALUE_NONE, 'Download directory secara recursive')
+            ->addOption(
+                'connection',
+                'c',
+                InputOption::VALUE_REQUIRED,
+                'Nama koneksi SSH (misal: satis, sirent, default)',
+                'default',
+                function () {
+                    return $this->sshConnection->getAvailableServiceNames();
+                }
+            )
+            ->addArgument(
+                'remote_path',
+                InputArgument::REQUIRED,
+                'Path file atau directory di server remote'
+            )
+            ->addArgument(
+                'local_path',
+                InputArgument::OPTIONAL,
+                'Path lokal untuk menyimpan',
+                '.'
+            )
+            ->addOption(
+                'recursive',
+                'r',
+                InputOption::VALUE_NONE,
+                'Download directory secara recursive'
+            )
             ->setHelp(
                 <<<'HELP'
                 Contoh penggunaan:

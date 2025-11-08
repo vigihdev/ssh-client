@@ -13,7 +13,10 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Vigihdev\Ssh\Service\SshConnectionManagerService;
 
-#[AsCommand(name: 'ssh:exec', description: 'Eksekusi koneksi SSH (interaktif / perintah)')]
+#[AsCommand(
+    name: 'ssh:exec',
+    description: 'Eksekusi koneksi SSH (interaktif / perintah)'
+)]
 final class SshExecCommand extends Command
 {
 
@@ -26,7 +29,11 @@ final class SshExecCommand extends Command
     protected function configure(): void
     {
         $this
-            ->addArgument('cmd', InputArgument::REQUIRED, 'Perintah yang akan dieksekusi di remote host')
+            ->addArgument(
+                'cmd',
+                InputArgument::REQUIRED,
+                'Perintah yang akan dieksekusi di remote host'
+            )
             ->addOption(
                 'connection',
                 'c',
